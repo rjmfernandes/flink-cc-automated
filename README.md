@@ -22,7 +22,7 @@ confluent_cloud_api_secret = "$CC_API_SECRET"
 use_prefix = "$prefix_value"
 EOF
 cd ./terraform
- terraform init -upgrade
+terraform init -upgrade
 terraform plan
 terraform apply -auto-approve
 cc_hands_env=`terraform output -json | jq -r .cc_hands_env.value`

@@ -31,7 +31,7 @@ resource "confluent_flink_statement" "create_shoe_customers_keyed" {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
   }
-  statement  = "CREATE TABLE shoe_customers_keyed(customer_id STRING,first_name STRING,last_name STRING,email STRING,PRIMARY KEY (customer_id) NOT ENFORCED) WITH ('kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_customers_keyed(customer_id STRING,first_name STRING,last_name STRING,email STRING,PRIMARY KEY (customer_id) NOT ENFORCED) DISTRIBUTED INTO 1 BUCKETS;"
  
   rest_endpoint   =  data.confluent_flink_region.my_flink_region.rest_endpoint
   credentials {
@@ -74,7 +74,7 @@ resource "confluent_flink_statement" "create_shoe_products_keyed" {
   principal {
     id = confluent_service_account.clients.id
   }
-  statement  = "CREATE TABLE shoe_products_keyed(product_id STRING,brand STRING,`model` STRING,sale_price INT,rating DOUBLE,PRIMARY KEY (product_id) NOT ENFORCED) WITH ('kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_products_keyed(product_id STRING,brand STRING,`model` STRING,sale_price INT,rating DOUBLE,PRIMARY KEY (product_id) NOT ENFORCED) DISTRIBUTED INTO 1 BUCKETS;"
   properties = {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
@@ -196,7 +196,7 @@ resource "confluent_flink_statement" "create_shoe_order_customer" {
   principal {
     id = confluent_service_account.clients.id
   }
-  statement  = "CREATE TABLE shoe_order_customer(order_id INT,product_id STRING,first_name STRING,last_name STRING,email STRING) WITH ('changelog.mode' = 'retract', 'kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_order_customer(order_id INT,product_id STRING,first_name STRING,last_name STRING,email STRING) DISTRIBUTED INTO 1 BUCKETS WITH ('changelog.mode' = 'retract');"
   properties = {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
@@ -282,7 +282,7 @@ resource "confluent_flink_statement" "create_shoe_order_customer_product" {
   principal {
     id = confluent_service_account.clients.id
   }
-  statement  = "CREATE TABLE shoe_order_customer_product(order_id INT,first_name STRING,last_name STRING,email STRING,brand STRING,`model` STRING,sale_price INT,rating DOUBLE) WITH ('changelog.mode' = 'retract', 'kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_order_customer_product(order_id INT,first_name STRING,last_name STRING,email STRING,brand STRING,`model` STRING,sale_price INT,rating DOUBLE) DISTRIBUTED INTO 1 BUCKETS WITH ('changelog.mode' = 'retract');"
   properties = {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
@@ -369,7 +369,7 @@ resource "confluent_flink_statement" "create_shoe_loyalty_levels" {
   principal {
     id = confluent_service_account.clients.id
   }
-  statement  = "CREATE TABLE shoe_loyalty_levels(email STRING,total BIGINT,rewards_level STRING,PRIMARY KEY (email) NOT ENFORCED) WITH ('kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_loyalty_levels(email STRING,total BIGINT,rewards_level STRING,PRIMARY KEY (email) NOT ENFORCED) DISTRIBUTED INTO 1 BUCKETS;"
   properties = {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
@@ -457,7 +457,7 @@ resource "confluent_flink_statement" "create_shoe_promotions" {
   principal {
     id = confluent_service_account.clients.id
   }
-  statement  = "CREATE TABLE shoe_promotions(email STRING,promotion_name STRING,PRIMARY KEY (email) NOT ENFORCED) WITH ('kafka.partitions' = '1');"
+  statement  = "CREATE TABLE shoe_promotions(email STRING,promotion_name STRING,PRIMARY KEY (email) NOT ENFORCED) DISTRIBUTED INTO 1 BUCKETS;"
   properties = {
     "sql.current-catalog"  : confluent_environment.cc_handson_env.display_name
     "sql.current-database" : confluent_kafka_cluster.cc_kafka_cluster.display_name
