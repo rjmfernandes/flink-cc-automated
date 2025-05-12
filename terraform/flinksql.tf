@@ -4,7 +4,7 @@
 resource "confluent_flink_statement" "create_shoe_customers_keyed" {
   depends_on = [
         resource.confluent_environment.cc_handson_env,
-        resource.confluent_schema_registry_cluster.cc_sr_cluster,
+        data.confluent_schema_registry_cluster.cc_sr_cluster,
         resource.confluent_kafka_cluster.cc_kafka_cluster,
         resource.confluent_connector.datagen_products,
         resource.confluent_connector.datagen_customers,
@@ -51,7 +51,7 @@ resource "confluent_flink_statement" "create_shoe_customers_keyed" {
 resource "confluent_flink_statement" "create_shoe_products_keyed" {
   depends_on = [
     resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    data.confluent_schema_registry_cluster.cc_sr_cluster,
     resource.confluent_kafka_cluster.cc_kafka_cluster,
     resource.confluent_connector.datagen_products,
     resource.confluent_connector.datagen_customers,
@@ -171,7 +171,7 @@ resource "confluent_flink_statement" "insert_shoe_products_keyed" {
 resource "confluent_flink_statement" "create_shoe_order_customer" {
   depends_on = [
     resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    data.confluent_schema_registry_cluster.cc_sr_cluster,
     resource.confluent_kafka_cluster.cc_kafka_cluster,
     resource.confluent_connector.datagen_products,
     resource.confluent_connector.datagen_customers,
@@ -256,7 +256,7 @@ resource "confluent_flink_statement" "insert_shoe_order_customer" {
 resource "confluent_flink_statement" "create_shoe_order_customer_product" {
   depends_on = [
     resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    data.confluent_schema_registry_cluster.cc_sr_cluster,
     resource.confluent_kafka_cluster.cc_kafka_cluster,
     resource.confluent_connector.datagen_products,
     resource.confluent_connector.datagen_customers,
@@ -342,7 +342,7 @@ resource "confluent_flink_statement" "insert_shoe_order_customer_product" {
 resource "confluent_flink_statement" "create_shoe_loyalty_levels" {
   depends_on = [
     resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    data.confluent_schema_registry_cluster.cc_sr_cluster,
     resource.confluent_kafka_cluster.cc_kafka_cluster,
     resource.confluent_connector.datagen_products,
     resource.confluent_connector.datagen_customers,
@@ -429,7 +429,7 @@ resource "confluent_flink_statement" "insert_shoe_loyalty_levels" {
 resource "confluent_flink_statement" "create_shoe_promotions" {
   depends_on = [
    resource.confluent_environment.cc_handson_env,
-    resource.confluent_schema_registry_cluster.cc_sr_cluster,
+    data.confluent_schema_registry_cluster.cc_sr_cluster,
     resource.confluent_kafka_cluster.cc_kafka_cluster,
     resource.confluent_connector.datagen_products,
     resource.confluent_connector.datagen_customers,

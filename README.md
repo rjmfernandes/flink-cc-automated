@@ -10,7 +10,7 @@ Automated for deploying the compute pool and all long running Flink SQL jobs.
 - Local install Confluent CLI, [install the cli](https://docs.confluent.io/confluent-cli/current/install.html) 
 
 ```shell
-echo "Enter a prefix value as 'rfernandes_':"
+echo "Enter a prefix value as 'rfernandes-test':"
 read prefix_value
 confluent login
 CC_API_KEY_SECRET=`confluent api-key create --resource cloud --description "API for terraform"`
