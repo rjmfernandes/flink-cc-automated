@@ -35,6 +35,26 @@ confluent flink compute-pool use $cc_flink_pool
 
 Please check whether the terraform execution went without errors.
 
+If you get an error like this:
+
+```
+│ Error: error reading Environments: 401 Unauthorized: Unauthorized
+│ 
+│   with data.confluent_organization.main,
+│   on cflt_cloud.tf line 1, in data "confluent_organization" "main":
+│    1: data "confluent_organization" "main" {}
+```
+
+Probably means you can't create new API Keys and you may need to do some cleanup. Next is a piece of command to easily delete all API Keys related to a specific user (replace `rfernandes` to what best matches your specific case):
+
+```shell
+confluent api-key list|grep rfernandes| while IFS='|' read -r _ field2 _; do
+    field2=$(echo "$field2" | xargs)  # Trim spaces
+    echo "Deleting API KEY $field2"
+    confluent api-key delete --force $field2 
+done
+```
+
 # Flink SQL
 
 Now you can check in Confluent Cloud UI all connectors have been deployed as well the Flink Compute Pool and the long running Flink SQL jobs. You can also execute the Flink Shell:
